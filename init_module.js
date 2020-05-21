@@ -15,7 +15,7 @@ http.createServer(function (req, res) {
 
   con.connect(function(err) {
         if (err) throw err;
-        console.log("Connected!");
+ 
   });
 
 //   ENDPOINT INDEX
@@ -36,7 +36,6 @@ http.createServer(function (req, res) {
     var valid = true;
     var err_log = "";
     trimmed_name=q.name.replace(/\s/g, "");
-    console.log(trimmed_name);
     if(validator.default.isEmpty(trimmed_name) || validator.default.isEmpty(q.salary)){
         // res.writeHead(400, {'Content-Type': 'text'});
         err_log += 'fill both params\n';
@@ -56,7 +55,7 @@ http.createServer(function (req, res) {
     var sql = "INSERT INTO activities (name, salary) VALUES ('"+q.name+"', '"+q.salary+"')";
     con.query(sql, function (err, result) {
         if (err) throw err;
-        console.log("Record inserted");
+
       });
       res.writeHead(200, {'Content-Type': 'text/html'});
       res.write("name: "+q.name+", salary:"+q.salary);
