@@ -17,13 +17,28 @@ http.createServer(function (req, res) {
         console.log("Connected!");
   });
 
-
+//   ENDPOINT INDEX
   if(q.pathname=="/activities/index"){
     con.query("SELECT * FROM activities", function (err, result, fields) {
         if (err) throw err;
         
         var string=JSON.stringify(result);
         res.write(string);
+        res.end();
+      });
+  }
+
+
+//   ENDPOINT ADD
+  if(q.pathname=="/activities/add"){
+    var q = url.parse(req.url, true).query;
+
+    // INSERT INTO `activities` VALUES (1,'architect',1000)
+    var sql = "INSERT INTO activities (name, salary) VALUES ('"+q.name+"', '"+q.salary+"')";
+    con.query(sql, function (err, result) {
+        if (err) throw err;
+        console.log("Record inserted");
+        res.write("name: "+q.name+", salary:"+q.salary);
         res.end();
       });
   }
